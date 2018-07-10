@@ -49,6 +49,11 @@ module Fluent
       RULES_BY_LANG.keys
     end
 
+    TIME_RULES = [
+      rule(:start_state, /^\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}/, :time),
+      rule(:time, /^[\t ]*(?:\D)+/, :time)
+    ]
+
     JAVA_RULES = [
       rule(:start_state,
            /(?:Exception|Error|Throwable|V8 errors stack trace)[:\r\n]/,
@@ -134,6 +139,7 @@ module Fluent
     ).freeze
 
     RULES_BY_LANG = {
+      time: TIME_RULES,
       java: JAVA_RULES,
       javascript: JAVA_RULES,
       js: JAVA_RULES,
